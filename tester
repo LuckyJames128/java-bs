@@ -1,0 +1,44 @@
+import bs
+import java.util.Arrays;
+import java.util.List;
+
+public class BulgarianSolitaireTest {
+
+    private static void testRun(List<Integer> piles) {
+        System.out.println("=== Test with piles: " + piles + " ===");
+        try {
+            bs.run(piles);
+        } catch (AssertionError ae) {
+            System.out.println("AssertionError: " + ae.getMessage());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getClass().getName() + ": " + e.getMessage());
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        // Valid triangular total, small example
+        testRun(Arrays.asList(2,3,4,5,7,13));
+
+        // Another valid example
+        testRun(Arrays.asList(6, 3, 1, 0, 2));  // should error, non-triangular
+
+        // A larger valid example
+        testRun(Arrays.asList(3, 3, 6, 2, 1));  // Should work
+
+        // Edge case: single pile
+        testRun(Arrays.asList(10));  // error, non-triangular
+
+        // Edge case: empty list
+        System.out.println("=== Test with empty pile list ===");
+        try {
+            bs.run(Arrays.asList());
+        } catch (AssertionError | Exception e) {
+            System.out.println("Expected exception or assertion: " + e.getClass().getName() + " – " + e.getMessage());
+        }
+        System.out.println();
+
+        // A more complex valid example
+        testRun(Arrays.asList(43,1,1))
+    }
+}
